@@ -27,6 +27,7 @@ function App() {
   useEffect(() => {
     return () => {
       document.addEventListener('keydown', (e) => {
+        console.log("space")
         if(e.repeat) return
         if(e.key === ' ') {
           spacebarPress()
@@ -36,7 +37,6 @@ function App() {
   }, [])
   
   const spacebarPress = () => {
-    console.log("space")
     if(start && sameAsAns) right()
     if(start && !sameAsAns) wrong()
     if(toggle) reload()
