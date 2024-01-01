@@ -27,7 +27,6 @@ function App() {
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if(e.repeat) return
-      console.log("space")
       if(e.key === ' ') {
         spacebarPress()
       }
