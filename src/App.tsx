@@ -36,6 +36,7 @@ function App() {
   }, [])
   
   const spacebarPress = () => {
+    console.log("space")
     if(start && sameAsAns) right()
     if(start && !sameAsAns) wrong()
     if(toggle) reload()
