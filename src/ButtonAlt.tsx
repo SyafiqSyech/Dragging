@@ -66,7 +66,6 @@ const ButtonAlt = (props: {keyboard: any, onPress: any, shadow: any}) => {
       onMouseDown={() => {
         keyOnHold(props.keyboard, true)
         props.onPress()
-        console.log("press")
       }}
       onMouseUp={() => {keyOnHold(props.keyboard, false)}}
       onMouseLeave={() => {keyOnHold(props.keyboard, false)}}

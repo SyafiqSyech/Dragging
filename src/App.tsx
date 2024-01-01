@@ -25,15 +25,13 @@ function App() {
   var keys3 = keys.slice(19, 26)
   
   useEffect(() => {
-    return () => {
-      document.addEventListener('keydown', (e) => {
-        console.log("space")
-        if(e.repeat) return
-        if(e.key === ' ') {
-          spacebarPress()
-        }
-      }, true)
-    }
+    document.addEventListener('keydown', (e) => {
+      if(e.repeat) return
+      console.log("space")
+      if(e.key === ' ') {
+        spacebarPress()
+      }
+    }, true)
   }, [])
   
   const spacebarPress = () => {
