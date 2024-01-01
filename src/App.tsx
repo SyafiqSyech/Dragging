@@ -37,6 +37,7 @@ function App() {
     if(start && sameAsAns) right()
     if(start && !sameAsAns) wrong()
     if(toggle) reload()
+    clearTimeout(timer)
   }
 
   const reload = () => {
