@@ -9,13 +9,12 @@ function App() {
   const [toggle] = useState(true)
   const [shadow] = useState(true)
   const [timerDisplay, setTimerDisplay] = useState("")
-  // toggle = freeplay ? toggle : true
 
   let pressedKeys: any[] = []
   let timer: any = null
   let start = false
   let sameAsAns = false
-  let level = 6
+  let level = 1
   let waitReload = false
   
   const keys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
