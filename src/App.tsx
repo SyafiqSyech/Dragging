@@ -25,19 +25,21 @@ function App() {
   var keys3 = keys.slice(19, 26)
   
   useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if(e.repeat) return
-      if(e.key === ' ') {
-        spacebarPress()
-      }
-    }, true)
+    return () => {
+      document.addEventListener('keydown', (e) => {
+        if(e.repeat) return
+        if(e.key === ' ') {
+          spacebarPress()
+        }
+      }, true)
+    }
   }, [])
   
   const spacebarPress = () => {
-    if(start && sameAsAns) right()
-    if(start && !sameAsAns) wrong()
-    if(toggle) reload()
-    clearTimeout(timer)
+    if(freeplay && toggle) reload()
+    else if(start && sameAsAns){ right(); reload()}
+    else if(start && !sameAsAns && !waitReload){ wrong(); waitReload = true}
+    else reload()
   }
 
   const reload = () => {
@@ -71,38 +73,47 @@ function App() {
     })
     clearTimeout(timer)
     setTimerDisplay("")
-    timer = setTimeout(() => {
-      setTimerDisplay("Timeout")
-      wrong()
-    }, 5000)
+    if(!freeplay){
+      timer = setTimeout(() => {
+        setTimerDisplay("Timeout")
+        wrong()
+        waitReload = true
+      }, 5000)
+    }
   }
 
   const pressKey = (keyboard: any) => {
     if(!freeplay && start && !pressedKeys.includes(keyboard)){
       pressedKeys = [...pressedKeys, keyboard]
-      if(!(pressedKeys.sort().every((element) => ans.sort().includes(element)))){
+      if(!(pressedKeys.sort().every((element) => ans.sort().includes(element))) && !waitReload){
         wrong()
+        waitReload = true
+        // console.log(pressedKeys)
+        // console.log(ans)
+        // console.log('wrong')
       }
-      if((pressedKeys.sort().length === ans.sort().length) && pressedKeys.sort().every((value, index) => value === ans.sort()[index])) sameAsAns = true
+      else if((pressedKeys.sort().length === ans.sort().length) && pressedKeys.sort().every((value, index) => value === ans.sort()[index])){
+        sameAsAns = true
+        // console.log(pressedKeys)
+        // console.log(ans)
+        // console.log("right") 
+      }
     }
   }
 
   const wrong = () => {
-    if(!waitReload){
-      level = 1
-      waitReload = true
-      keys.map((e) => {
-        animate("#keyDiv"+e, 
-          {
-            y: 0,
-            boxShadow: shadow ? "0px .8rem #ffffff" : '0px 0rem #ffffff',
-            backgroundColor: '#A5824B'
-          }, { 
-            duration: .1
-          }
-        )
-      })
-    }
+    level = 1
+    keys.map((e) => {
+      animate("#keyDiv"+e, 
+        {
+          y: 0,
+          boxShadow: shadow ? "0px .8rem #ffffff" : '0px 0rem #ffffff',
+          backgroundColor: '#A5824B'
+        }, { 
+          duration: .1
+        }
+      )
+    })
   }
   
   const right = () => {

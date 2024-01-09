@@ -51,7 +51,7 @@ const Button = (props: {keyboard: any, onPress: any, toggle: any, shadow: any}) 
   const keyOnHold = (key: any, n: any) => {
     if(key === props.keyboard){
       animateSpaceBarDiv(n)
-      props.onPress()
+      if(n || !props.toggle) props.onPress()
     }
   }
   
